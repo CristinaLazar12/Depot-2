@@ -14,7 +14,7 @@ class ProductTest < ActiveSupport::TestCase
 
   test "product price must be positive" do
     product = Product.new(title: "My Book Title",
-                          description: "yyy",
+                          description: "This description",
                           image_url: "zzz.jpg")
     product.price = -1
     assert product.invalid?
@@ -32,13 +32,13 @@ class ProductTest < ActiveSupport::TestCase
 
   def new_product(image_url)
     Product.new(title: "My Book Title",
-                description: "yyy",
+                description: "This description",
                 price: 1,
                 image_url: image_url)
   end
 
   test "image url" do
-    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.jpg
+    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
               http://a.b.c/x/y/z/fred.gif }
     bad = %w{ fred.doc fred.gif/more fred.gif.more}
 
@@ -55,10 +55,67 @@ class ProductTest < ActiveSupport::TestCase
 
   test "product is not valid without a unique title" do
     product = Product.new(title: products(:ruby).title,
-                          description: "yyy",
+                          description: "This description",
                           price: 1,
                           image_url: "fred.gif")
     assert product.invalid?
     assert_equal ["has already been taken"], product.errors[:title]
+  end
+
+  test "title is not unique case insensitive" do
+    title = "This is a new title"
+    product = Product.create(title: title,
+                            description: "This description", 
+                            price: 1, 
+                            image_url: "image1.gif")
+    product_2 = Product.new(title: title.downcase,
+                            description: "Another description",
+                            price: 1,
+                            image_url: "image2.gif")
+    assert product_2.invalid?
+    assert_equal ["has already been taken"], product_2.errors[:title]
+  end
+
+  test "description is invalid if it has less than two words" do
+    product = Product.new(title: "We have a title",
+                          description: "Short",
+                          price: 1,
+                          image_url: "image3.gif")
+    product.valid?
+    assert product.invalid?
+    assert_equal ["must have at least 2 words"], product.errors[:description]
+  end
+
+  test "description is valid if it has exactly 2 words" do
+    product = Product.new(title: "This is a perfect title",
+                          description: "This description",
+                          price: 1,
+                          image_url: "fred.gif")
+    assert product.valid?
+  end
+
+  test "description is valid if it has more than 2 words" do
+    product = Product.new(title: "Another title here",
+                          description: "This description has more than two words.",
+                          price: 1,
+                          image_url: "fred.gif")
+    assert product.valid?
+  end
+
+  test "title has at least 3 characters" do
+    product = Product.new(title: "Docker", 
+                          description: "This description has more than two words.",
+                          price: 1,
+                          image_url: "fred.gif")
+    assert product.valid?
+  end
+
+  test "title is too short" do
+    product = Product.new(title: "Do",
+                          description: "This description has more than two words.",
+                          price: 1,
+                          image_url: "fred.gif")
+    assert product.invalid?
+    assert_equal ["is too short (minimum is 3 characters)"], product.errors[:title]
   end
 end
