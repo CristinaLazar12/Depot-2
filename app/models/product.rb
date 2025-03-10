@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-    has_many :line_items
+    has_many :line_items, dependent: :restrict_with_error
 
     before_destroy :ensure_not_referenced_by_any_line_item
 
@@ -28,11 +28,17 @@ class Product < ApplicationRecord
     end
 
     private
+
+    # Example of what the method might look like
+    def line_items_empty?
+        line_items.empty? # Assumes there's a `line_items` association in the Product model
+    end
+    
     # ensure that there are no line items referencing this product
     def ensure_not_referenced_by_any_line_item
-        unless line_items_empty?
-            errors.add(:base, 'Line Items present')
-            throw:abort
+        if line_items.any?
+            errors.add(:base, "Product is referenced by line items")
+            throw :abort # Prevents the destruction of the product
         end
     end
 end
