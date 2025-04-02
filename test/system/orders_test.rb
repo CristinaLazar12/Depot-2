@@ -14,7 +14,7 @@ class OrdersTest < ApplicationSystemTestCase
     visit orders_url
     click_on "New order"
 
-    fill_in "Pay type", with: @order. pay_type
+    fill_in "Pay type", with: @order.pay_type
     fill_in "Address", with: @order.address
     fill_in "Email", with: @order.email
     fill_in "Name", with: @order.name
@@ -28,7 +28,7 @@ class OrdersTest < ApplicationSystemTestCase
     visit order_url(@order)
     click_on "Edit this order", match: :first
 
-    fill_in "Pay type", with: @order. pay_type
+    fill_in "Pay type", with: @order.pay_type
     fill_in "Address", with: @order.address
     fill_in "Email", with: @order.email
     fill_in "Name", with: @order.name
