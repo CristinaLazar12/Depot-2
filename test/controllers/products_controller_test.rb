@@ -12,6 +12,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+
     get new_product_url
     assert_response :success
   end
@@ -37,8 +38,10 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+
   test "should update product" do
-    patch product_url(@product), params: { product: { description: @product.description, 
+binding.pry
+    patch product_url(id: @product.id ), params: { product: { description: @product.description, 
                                                       image_url: @product.image_url, 
                                                       price: @product.price, 
                                                       title: @title } }

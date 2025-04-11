@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: %i[ show edit update destroy ]
+  before_action :set_cart, only: %i[ show edit update destroy double_quantity ]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts or /carts.json
@@ -59,6 +59,35 @@ class CartsController < ApplicationController
     end
   end
 
+  #def double_quantity
+    # Find the line_item using the cart's ID and the product_id from params
+   # @line_item = @cart.line_items.find_by(product_id: params[:product_id])
+
+    # If the line_item exists, double the quantity
+    #if @line_item
+     # @line_item.update(quantity: @line_item.quantity * 2)
+    #end
+
+    #redirect_to cart_path(@cart)
+  #end
+
+  #def double_quantity
+    #@line_item = @cart.line_items.find(params[:line_item_id])      
+     # if @line_item
+      #  @line_item.update(quantity: @line_item.quantity * 2)
+      #else
+       # redirect_to cart_path(@cart), notice: 'Quantity doubled successfully.'
+      #end
+  #end
+
+  def double_quantity
+    @cart = Cart.find(params[:id])
+    @cart.line_items.each do |line_item|
+      line_item.update(quantity: line_item.quantity * 2)
+    end
+    redirect_to cart_path(@cart), notice: 'Total quantity of all items has been doubled.'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
@@ -75,3 +104,4 @@ class CartsController < ApplicationController
       redirect_to store_index_url, notice: 'Invalid cart'
     end
 end
+

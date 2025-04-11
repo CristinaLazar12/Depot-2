@@ -48,4 +48,10 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to store_index_url
   end
+
+  test "double cart quantity" do
+    patch double_quantity_cart_path(@cart)
+    assert_redirected_to cart_path(@cart)   # Check for the redirect to the cart show page
+    assert_equal 'Total quantity of all items has been doubled.', flash[:notice]  # Verify the flash message
+  end
 end
