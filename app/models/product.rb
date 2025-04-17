@@ -3,7 +3,7 @@ class Product < ApplicationRecord
 
     before_destroy :ensure_not_referenced_by_any_line_item
 
-    validates :title, :description, :image_url, presence: true
+    validates :title, :description, presence: true
     validates :price, numericality: { greater_than_or_equal_to: 0.01 }
     validates :title, uniqueness: { case_sensitive: false }, length: { minimum: 3 }
     validates :image_url, allow_blank: true, format: {

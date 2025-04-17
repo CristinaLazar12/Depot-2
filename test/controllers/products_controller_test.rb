@@ -40,7 +40,6 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "should update product" do
-binding.pry
     patch product_url(id: @product.id ), params: { product: { description: @product.description, 
                                                       image_url: @product.image_url, 
                                                       price: @product.price, 

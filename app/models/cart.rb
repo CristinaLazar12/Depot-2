@@ -14,8 +14,5 @@ class Cart < ApplicationRecord
     def total_price
         line_items.sum { |item| item.total_price }
     end
-    def double_quantity
-        line_items.sum(&:quantity) * 2
-    end
 end
 
