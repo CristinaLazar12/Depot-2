@@ -32,7 +32,7 @@
       <%= form.select :pay_type, Order.pay_types.keys,
                       { prompt: 'Select a payment method' },
                        'data-payment-target' => 'selection',
-                       'data-action' => 'payment#showAdditionalFields',
+                       'data-action' => 'change->payment#showAdditionalFields',
                        class: "input-field" %>
     </div>
 
