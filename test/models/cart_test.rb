@@ -12,9 +12,9 @@ class CartTest < ActiveSupport::TestCase
     cart_id = @cart.id
     @cart.line_items.destroy_all
 
-            product1 = Product.create(title: "Titlu 1", description: "a description", price: 5)
-            product2 = Product.create(title: "Titlu 2", description: "a description", price: 5)
-            product3 = Product.create(title: "Titlu 3", description: "a description", price: 5)
+            product1 = Product.create(title: "Titlu 1", description: "a description", price: 5, image_url: "book1.jpg")
+            product2 = Product.create(title: "Titlu 2", description: "a description", price: 5, image_url: "book2.jpg")
+            product3 = Product.create(title: "Titlu 3", description: "a description", price: 5, image_url: "book3.jpg")
 
             line_item1 = LineItem.create(product_id: product1.id, cart_id: cart_id)
             line_item2 = LineItem.create(product_id: product2.id, cart_id: cart_id)
