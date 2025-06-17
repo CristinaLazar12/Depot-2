@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+  skip_before_action :authorize, only: %i[ index show create update destroy ]
   before_action :set_cart, only: %i[ show edit update destroy double_quantity ]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
@@ -91,7 +92,7 @@ class CartsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
-      @cart = Cart.find(params.expect(:id))
+      @cart = Cart.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
