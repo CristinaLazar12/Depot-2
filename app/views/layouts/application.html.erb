@@ -13,9 +13,23 @@
   </head>
 
   <body>
-    <header class="bg-green-700">
-      <%= image_tag 'logo (1).svg', alt: 'The Pragmatic Bookshelf' %>
-      <hi><%= @page_title %></hi>
+    <header class="bg-green-700 flex items-center justify-between px-4 py-2">
+      <div class="flex items-center space-x-4">
+        <%= image_tag 'logo (1).svg', alt: 'The Pragmatic Bookshelf' %>
+        <h1 class="text-white font-bold text-lg"><%= @page_title %></h1>
+      </div>
+
+      <aside data-controller="locale" class="flex items-center space-x-2">
+        <%= form_tag store_index_path, class: 'locale flex items-center space-x-2' do %>
+        <%= select_tag 'set_locale',
+          options_for_select(LANGUAGES, I18n.locale.to_s),
+          onchange: 'this.form.submit()',
+          class: 'bg-white text-green-700 rounded border-gray-300' %>
+        <%= submit_tag 'Submit',
+          class: 'bg-green text-green-700 font-semibold px-3 py-1 rounded',
+          data: {'locale-target' => 'submit'} %>
+        <% end %>
+      </aside>
     </header>
 
     <section class="flex">
