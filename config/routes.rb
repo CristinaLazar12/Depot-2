@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     resources :line_items
     resources :carts
     root 'store#index', as: 'store_index', via: :all
+
+    resources :subscriptions
+
   end
 
   resources :carts do
@@ -41,4 +44,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
 end

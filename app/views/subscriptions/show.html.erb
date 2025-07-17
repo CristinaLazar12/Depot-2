@@ -1,0 +1,19 @@
+<h1>Subscription Details</h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @subscription.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= number_to_currency(@subscription.price) %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @subscription.active ? 'Yes' : 'No' %>
+</p>
+
+<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
+<%= link_to 'Back', subscriptions_path %>

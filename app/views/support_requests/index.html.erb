@@ -47,9 +47,11 @@
                         <%= form.label :response, "Write Response" %>
                         <%= form.rich_text_area :response, id: :support_request_response %>
                     </div>
-                    <div class="actions">
-                        <%= form.submit "Send Response" %>
-                    </div>
+
+                    <div class="actions flex justify-center mt-4">
+                        <%= form.submit "Send Response", class: "block mx-auto bg-green-700 text-white font-semibold py-2 px-6 rounded hover:bg-green-800 transition w-full max-w-md" %>
+                    </div> 
+
                 <% end %>
             <% else %>
                 <h4>Our response:</h4>
@@ -64,3 +66,4 @@
         </li>
     <% end %>
 </ul>
+

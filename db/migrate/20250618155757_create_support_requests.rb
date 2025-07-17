@@ -11,3 +11,7 @@ class CreateSupportRequests < ActiveRecord::Migration[8.0]
     end
   end
 end
+
+#foreign_key: true înseamnă că Rails va crea o relație între support_requests și orders, 
+#astfel încât fiecare support_request.order_id trebuie să corespundă unui orders.id, 
+#asigurând integritatea referinței între cele două tabele

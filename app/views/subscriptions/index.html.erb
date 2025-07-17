@@ -1,0 +1,22 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 20px;">
+  <h1 style="font-size: 2.5em; margin: 0;">Subscriptions</h1>
+  <%= link_to 'New Subscription', new_subscription_path,
+      style: "background-color: #28a745; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block;" %>
+</div>
+
+<!-- Lista abonamentelor -->
+<div class="subscriptions-list">
+  <% @subscriptions.each do |subscription| %>
+    <div class="subscription-item" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+      <p><strong>Name:</strong> <%= subscription.name %></p>
+      <p><strong>Price:</strong> <%= number_to_currency(subscription.price) %></p>
+      <p><strong>Active:</strong> <%= subscription.active ? 'Yes' : 'No' %></p>
+
+      <p>
+        <%= link_to 'Show', subscription, class: "btn btn-secondary" %> |
+        <%= link_to 'Edit', edit_subscription_path(subscription), class: "btn btn-warning" %> |
+        <%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+      </p>
+    </div>
+  <% end %>
+</div>
