@@ -67,4 +67,4 @@ end
 
 gem 'activemodel-serializers-xml'
 
-gem "cssbundling-rails"
+#gem "cssbundling-rails"

@@ -2,7 +2,7 @@ require "test_helper"
 
 class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = User.create!(email: "test@example.com", password: "password")
+    @user = User.create!(name: "Dave", password: "password")
     @product = Product.create!(title: "Test Book", author: "Author")
     @subscription = Subscription.create!(user: @user, product: @product, active: true)
   end
